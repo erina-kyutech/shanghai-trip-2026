@@ -33,6 +33,7 @@ const seed=[
 {id:'s5',date:'2026-10-31',name:'空港で肉うどんのような麺料理を食べた',amount:39,category:'食事',payment:'Alipay（Visa 9491）',note:'20:09・料理の正式名称は未確認'}];
 let expenses;try{const saved=JSON.parse(localStorage.getItem(key));expenses=Array.isArray(saved)?saved:seed.slice()}catch(e){expenses=seed.slice()}
 const crabEntry={id:'crab-20261101',date:'2026-11-01',name:'上海蟹を食べた',amount:455.6,category:'食事',payment:'その他',note:'2人合計911.2元の半額・支払者未確認'};const existingCrab=expenses.find(x=>x.id===crabEntry.id);if(existingCrab){existingCrab.amount=455.6;existingCrab.note='2人合計911.2元の半額・支払者未確認'}else expenses.push(crabEntry);
+const newPurchases=[{id:'nails-20261101',date:'2026-11-01',name:'ネイルチップを買った',amount:30,category:'買い物',payment:'その他',note:'30元・本人分として記録'},{id:'dinner-20261101',date:'2026-11-01',name:'夜ご飯を食べた',amount:183.5,category:'食事',payment:'その他',note:'2人合計367元の半額・料理名未確認'}];newPurchases.forEach(p=>{if(!expenses.some(x=>x.id===p.id))expenses.push(p)});
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>Number(n).toLocaleString('ja-JP',{minimumFractionDigits:2,maximumFractionDigits:2});
 const yen=n=>Math.round(n*Number($('exp-rate').value||22)).toLocaleString('ja-JP');
