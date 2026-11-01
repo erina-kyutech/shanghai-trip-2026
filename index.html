@@ -30,13 +30,13 @@ const seed=[
 {id:'s2',date:'2026-11-01',name:'スナック菓子を買った（黄油与渔）',amount:44.83,category:'食事',payment:'Alipay（Visa 9491）',note:'10:59'},
 {id:'s3',date:'2026-11-01',name:'タンブラーを買った（上海镜实家居用品）',amount:149,category:'買い物',payment:'Alipay（Visa 9491）',note:'10:38'},
 {id:'s4',date:'2026-11-01',name:'CHAGEE（チャジー）でドリンクを飲んだ',amount:39,category:'カフェ・飲み物',payment:'Alipay（Visa 9491）',note:'10:24'},
-{id:'s5',date:'2026-10-31',name:'飲食店での支払い（上海巧连餐饮管理有限公司・内容未確認）',amount:39,category:'その他',payment:'Alipay（Visa 9491）',note:'20:09・内容確認待ち'}];
+{id:'s5',date:'2026-10-31',name:'空港で肉うどんのような麺料理を食べた',amount:39,category:'食事',payment:'Alipay（Visa 9491）',note:'20:09・料理の正式名称は未確認'}];
 let expenses;try{const saved=JSON.parse(localStorage.getItem(key));expenses=Array.isArray(saved)?saved:seed.slice()}catch(e){expenses=seed.slice()}
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>Number(n).toLocaleString('ja-JP',{minimumFractionDigits:2,maximumFractionDigits:2});
 const yen=n=>Math.round(n*Number($('exp-rate').value||22)).toLocaleString('ja-JP');
 const sum=a=>a.reduce((s,x)=>s+Number(x.amount||0),0);
-const labelUpdates={'s1':'ガチャガチャを回した（KomiJ潮玩）','s2':'スナック菓子を買った（黄油与渔）','s3':'タンブラーを買った（上海镜实家居用品）','s4':'CHAGEE（チャジー）でドリンクを飲んだ','s5':'飲食店での支払い（上海巧连餐饮管理有限公司・内容未確認）'};expenses.forEach(x=>{if(labelUpdates[x.id]){x.name=labelUpdates[x.id];if(x.id==='s5'){x.category='その他';x.note='20:09・内容確認待ち'}}});
+const labelUpdates={'s1':'ガチャガチャを回した（KomiJ潮玩）','s2':'スナック菓子を買った（黄油与渔）','s3':'タンブラーを買った（上海镜实家居用品）','s4':'CHAGEE（チャジー）でドリンクを飲んだ','s5':'空港で肉うどんのような麺料理を食べた'};expenses.forEach(x=>{if(labelUpdates[x.id]){x.name=labelUpdates[x.id];if(x.id==='s5'){x.category='食事';x.note='20:09・料理の正式名称は未確認'}}});
 const save=()=>{try{localStorage.setItem(key,JSON.stringify(expenses))}catch(e){alert('保存できませんでした。ブラウザの保存設定を確認してください。')}render()};
 function render(){const total=sum(expenses);$('exp-total-cny').textContent=fmt(total)+' 元';const booked=74383+Number($('exp-hotel').value||10564.5);$('exp-total-jpy').textContent='約 '+(booked+Math.round(total*Number($('exp-rate').value||22))).toLocaleString('ja-JP')+' 円';$('exp-total-breakdown').textContent='予約済み '+booked.toLocaleString('ja-JP')+'円 ＋ 現地 '+yen(total)+'円（換算）';$('exp-count').textContent=expenses.length+'件の現地支出';
 const groups=(field,target)=>{const map={};expenses.forEach(x=>map[x[field]||'未分類']=(map[x[field]||'未分類']||0)+Number(x.amount));$(target).innerHTML=Object.entries(map).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<div class="kv"><span>'+esc(k)+'</span><strong>'+fmt(v)+'元<br><small>約'+yen(v)+'円</small></strong></div>').join('')};groups('date','exp-by-day');groups('category','exp-by-category');
