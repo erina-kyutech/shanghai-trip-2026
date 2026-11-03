@@ -42,6 +42,7 @@ const disneyFruit={id:'fruit-20261102',date:'2026-11-02',name:'上海ディズ�
 const disneyLunch={id:'lunch-20261102',date:'2026-11-02',name:'上海ディズニーで昼ごはんを食べた',amount:75,category:'食事',payment:'その他',note:'1人分として仮登録・料理は未確認'};if(!expenses.some(x=>x.id===disneyLunch.id))expenses.push(disneyLunch);
 const disneyDinner={id:'dinner-20261102',date:'2026-11-02',name:'夜ご飯を食べた（場所・料理未確認）',amount:68,category:'食事',payment:'その他',note:'1人分として仮登録（要確認）'};if(!expenses.some(x=>x.id===disneyDinner.id))expenses.push(disneyDinner);
 const chageeNov3={id:'chagee-20261103',date:'2026-11-03',name:'CHAGEE（チャジー）でドリンクを買った',amount:18,category:'カフェ・飲み物',payment:'その他',note:'1人分の金額（確認済み）'};if(!expenses.some(x=>x.id===chageeNov3.id))expenses.push(chageeNov3);
+const liquorGiftNov3={id:'liquor-gift-20261103',date:'2026-11-03',name:'お土産に紹興酒を買った',amount:339.8,category:'買い物',payment:'その他',note:'1人分として仮登録（要確認）。白酒を含むかも未確認'};if(!expenses.some(x=>x.id===liquorGiftNov3.id))expenses.push(liquorGiftNov3);
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>Number(n).toLocaleString('ja-JP',{minimumFractionDigits:2,maximumFractionDigits:2});
 const yen=n=>Math.round(n*Number($('exp-rate').value||22)).toLocaleString('ja-JP');
